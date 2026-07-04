@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio - Pen & Paper Style</title>
+  <style>
+    :root {
+      --bg: #fdfcf7;
+      --paper-line: #e0e0e0;
+      --text: #222;
+      --ink: #000;
+      --box-bg: #fff;
+      --shadow: #000;
+    }
+    body.dark {
+      --bg: #1b1b1a;
+      --paper-line: #2c2c2a;
+      --text: #ecece4;
+      --ink: #ecece4;
+      --box-bg: #242422;
+      --shadow: #ecece4;
+    }
+    body {
+      margin: 0;
+      font-family: 'Courier New', monospace;
+      background-color: var(--bg);
+      background-image: repeating-linear-gradient(
+        to bottom,
+        var(--bg),
+        var(--bg) 24px,
+        var(--paper-line) 25px
+      );
+      color: var(--text);
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    header {
+      padding: 40px;
+      text-align: center;
+      border-bottom: 2px dashed var(--ink);
+    }
+    h1 {
+      font-size: 3rem;
+      transform: rotate(-1deg);
+    }
+    .avatar {
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 14px;
+      border: 3px solid var(--ink);
+      box-shadow: 3px 3px 0 var(--shadow);
+      background: var(--box-bg);
+      transform: rotate(-3deg);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* --- Nav tabs: About / Resume / Projects / Contact side by side --- */
+    nav {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    nav a {
+      margin: 0;
+      padding: 9px 20px;
+      border: 2px solid var(--ink);
+      border-radius: 8px 8px 3px 3px;
+      background: var(--box-bg);
+      box-shadow: 2px 3px 0 var(--shadow);
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: bold;
+      transform: rotate(var(--tilt, 0deg));
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.3s ease, border-color 0.3s ease;
+    }
+    nav a:nth-child(1) { --tilt: -1.1deg; }
+    nav a:nth-child(2) { --tilt: 0.8deg; }
+    nav a:nth-child(3) { --tilt: -0.6deg; }
+    nav a:nth-child(4) { --tilt: 1deg; }
+    nav a:hover,
+    nav a:focus-visible {
+      transform: translateY(-4px) rotate(0deg);
+      box-shadow: 3px 6px 0 var(--shadow);
+    }
+    section {
+      padding: 50px;
+    }
+    .box {
+      border: 2px solid var(--ink);
+      padding: 20px;
+      margin: 20px 0;
+      background: var(--box-bg);
+      box-shadow: 3px 3px 0 var(--shadow);
+      transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .box:nth-child(1) { transform: rotate(-0.6deg); }
+    .box:nth-child(2) { transform: rotate(0.4deg); }
+    .box:nth-child(3) { transform: rotate(-0.3deg); }
+    .about-box {
+      max-width: 720px;
+      margin: 20px auto;
+      transform: rotate(-0.3deg);
+      text-align: left;
+      line-height: 1.7;
+    }
+    .about-box h3 {
+      margin-top: 0;
+      font-size: 1.4rem;
+    }
+    .about-box p {
+      margin: 0 0 1em 0;
+    }
+    .about-box p:last-child {
+      margin-bottom: 0;
+    }
+    .doing-title {
+      max-width: 720px;
+      margin: 40px auto 0;
+      text-align: left;
+      transform: rotate(-0.4deg);
+    }
+    .quadrant-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 720px;
+      margin: 16px auto 0;
+    }
+    .quad-box {
+      border: 2px solid var(--ink);
+      background: var(--box-bg);
+      box-shadow: 3px 3px 0 var(--shadow);
+      padding: 20px;
+      text-align: left;
+      transition: background 0.3s ease, box-shadow 0.2s ease, border-color 0.3s ease, transform 0.2s ease;
+    }
+    .quad-box:nth-child(1) { transform: rotate(-0.6deg); }
+    .quad-box:nth-child(2) { transform: rotate(0.5deg); }
+    .quad-box:nth-child(3) { transform: rotate(0.3deg); }
+    .quad-box:nth-child(4) { transform: rotate(-0.4deg); }
+    .quad-box:hover {
+      transform: translateY(-4px) rotate(0deg);
+      box-shadow: 4px 6px 0 var(--shadow);
+    }
+    .quad-icon {
+      font-size: 1.6rem;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .quad-box h4 {
+      margin: 0 0 8px 0;
+      font-size: 1.05rem;
+    }
+    .quad-box p {
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+    @media (max-width: 600px) {
+      .quadrant-grid { grid-template-columns: 1fr; }
+    }
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .contact-icon {
+      display: inline-flex;
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      color: var(--ink);
+    }
+    .contact-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* --- Enquiry form --- */
+    .enquiry-box h3 {
+      margin-top: 0;
+      font-size: 1.3rem;
+    }
+    .enquiry-form {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .enquiry-form label {
+      font-weight: bold;
+      margin-top: 8px;
+      font-size: 0.9rem;
+    }
+    .enquiry-form input,
+    .enquiry-form textarea {
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      padding: 10px 12px;
+      border: 2px solid var(--ink);
+      border-radius: 6px;
+      background: var(--bg);
+      color: var(--text);
+      resize: vertical;
+      transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+    .enquiry-form input:focus-visible,
+    .enquiry-form textarea:focus-visible {
+      outline: 2px dashed var(--ink);
+      outline-offset: 2px;
+    }
+    .enquiry-form .btn {
+      align-self: flex-start;
+      margin-top: 16px;
+      cursor: pointer;
+      font: inherit;
+    }
+    .enquiry-note {
+      font-size: 0.78rem;
+      opacity: 0.7;
+      margin: 8px 0 0;
+    }
+
+    /* --- Copy-on-click rows (phone / email) share styling with the LinkedIn/GitHub links --- */
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 16px;
+      border: 2px solid var(--ink);
+      border-radius: 6px;
+      background: var(--box-bg);
+      box-shadow: 2px 2px 0 var(--shadow);
+      text-decoration: none;
+      color: var(--ink);
+      font: inherit;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      box-sizing: border-box;
+      text-align: left;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.3s ease, border-color 0.3s ease;
+    }
+    .contact-row .contact-label {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .contact-row:hover,
+    .contact-row:focus-visible {
+      transform: translate(2px, 2px);
+      box-shadow: none;
+    }
+    .contact-row:focus-visible {
+      outline: 2px dashed var(--ink);
+      outline-offset: 3px;
+    }
+    .contact-row.copied {
+      background: var(--ink);
+      color: var(--bg);
+    }
+    .resume-box h3 {
+      margin: 28px 0 10px;
+      font-size: 1.15rem;
+    }
+    .resume-box h3:first-child {
+      margin-top: 0;
+    }
+    .resume-entry {
+      margin-bottom: 18px;
+    }
+    .resume-entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 6px 16px;
+    }
+    .resume-date {
+      font-style: italic;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      opacity: 0.8;
+    }
+    .resume-role {
+      font-style: italic;
+      font-size: 0.9rem;
+      margin-top: 2px;
+      margin-bottom: 8px;
+    }
+    .resume-entry ul {
+      margin: 0;
+      padding-left: 1.2em;
+    }
+    .resume-entry li {
+      margin-bottom: 6px;
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+    .resume-download-btn {
+      display: block;
+      width: fit-content;
+      margin: 28px auto 0;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 1.8rem;
+      transform: rotate(-0.8deg);
+      margin-bottom: 10px;
+    }
+    .project-box {
+      max-width: 720px;
+      margin: 20px auto;
+      text-align: left;
+    }
+    .project-icon {
+      font-size: 1.8rem;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .project-tagline {
+      font-weight: bold;
+      font-style: italic;
+      margin-top: -4px;
+    }
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0;
+    }
+    .tag {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border: 2px dashed var(--ink);
+      border-radius: 12px;
+      transform: rotate(-1deg);
+    }
+    .terminal-line {
+      display: inline-block;
+      margin: 10px 0 4px;
+      padding: 8px 14px;
+      background: var(--ink);
+      color: var(--bg);
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .hero {
+      text-align: center;
+    }
+    .hero h2 {
+      font-size: 2rem;
+      transform: rotate(1deg);
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      border: 2px solid var(--ink);
+      text-decoration: none;
+      color: var(--ink);
+      box-shadow: 2px 2px 0 var(--shadow);
+      transition: 0.2s;
+    }
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translate(2px, 2px);
+      box-shadow: none;
+    }
+    .btn:focus-visible {
+      outline: 2px dashed var(--ink);
+      outline-offset: 4px;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      border-top: 2px dashed var(--ink);
+    }
+    /* Scribble effect (inline SVG, no external dependency) */
+    .scribble {
+      position: relative;
+      display: inline-block;
+    }
+    .scribble::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 100%;
+      height: 10px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12'%3E%3Cpath d='M0 8 Q6 2 12 8 T24 8 T36 8 T48 8 T60 8 T72 8 T84 8 T96 8 T108 8 T120 8' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: repeat-x;
+      background-size: 60px 10px;
+      opacity: 0.85;
+    }
+    body.dark .scribble::after {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12'%3E%3Cpath d='M0 8 Q6 2 12 8 T24 8 T36 8 T48 8 T60 8 T72 8 T84 8 T96 8 T108 8 T120 8' fill='none' stroke='%23ecece4' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E");
+    }
+
+    /* --- Dark mode toggle: hand-drawn notebook checkbox, pinned top-right --- */
+    /* Base checkbox from Uiverse.io by AatreyuShau, adapted to the site's ink/paper palette */
+    .toggle-corner {
+      position: fixed;
+      top: 18px;
+      right: 20px;
+      z-index: 20;
+    }
+    .notebook-checkbox {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      cursor: pointer;
+      user-select: none;
+      font-family: "Courier New", monospace;
+      font-size: 1rem;
+      font-weight: bold;
+      padding: 8px 16px 8px 2.6em;
+      width: 9.6em;
+      box-sizing: border-box;
+      color: var(--text);
+      background: var(--bg);
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      box-shadow: 2px 2px 0 var(--shadow);
+      transform: rotate(-1.2deg);
+      transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .notebook-checkbox input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      filter: url(#handDrawnNoise);
+    }
+    .notebook-checkbox .checkmark {
+      position: absolute;
+      left: 0.7em;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 1em;
+      width: 1em;
+      border-radius: 10px;
+      border: 3px solid #33333366;
+      filter: url(#handDrawnNoise);
+      background: radial-gradient(var(--ink) 65%, transparent 70%);
+      opacity: 0.15;
+      transition: opacity 0.25s ease;
+    }
+    body.dark .notebook-checkbox .checkmark {
+      border-color: #ecece466;
+    }
+    .notebook-checkbox input:checked ~ .checkmark {
+      filter: url(#handDrawnNoise);
+      opacity: 1;
+    }
+    .notebook-checkbox .text {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      width: 100%;
+      filter: url(#handDrawnNoise);
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .notebook-checkbox .label-word {
+      display: inline-block;
+      opacity: 1;
+      transition: opacity 0.22s ease;
+    }
+    .notebook-checkbox .cut-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 15%;
+      height: 1em;
+      width: calc(100% + 6px);
+      pointer-events: none;
+      stroke: var(--ink);
+      stroke-width: 2;
+      fill: none;
+      transform: scaleX(0);
+      transform-origin: left;
+    }
+    /* Striking state: line sweeps across first, then the word fades out entirely */
+    .notebook-checkbox .text.striking .cut-line {
+      transform: scaleX(1);
+      transition: transform 0.26s ease;
+    }
+    .notebook-checkbox .text.striking .label-word {
+      opacity: 0;
+      transition: opacity 0.2s ease 0.14s;
+    }
+    /* New word fades back in once it's swapped */
+    .notebook-checkbox .label-word.entering {
+      opacity: 0;
+      transition: none;
+    }
+
+    /* --- Page-flip system: each tab is a stacked page inside #book --- */
+    #book {
+      position: relative;
+      perspective: 1800px;
+      transition: height 0.4s ease;
+    }
+    .page {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 50px;
+      backface-visibility: hidden;
+      transform-origin: left center;
+      transform: rotateY(0deg);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.6s cubic-bezier(0.45, 0.05, 0.35, 1), opacity 0.45s ease;
+    }
+    .page.active {
+      position: relative;
+      opacity: 1;
+      pointer-events: auto;
+      transform: rotateY(0deg);
+    }
+    /* Starting position for a page about to enter (set instantly, no transition) */
+    .page.pre-enter-forward,
+    .page.pre-enter-backward {
+      transition: none !important;
+      opacity: 0;
+    }
+    .page.pre-enter-forward { transform: rotateY(90deg); }
+    .page.pre-enter-backward { transform: rotateY(-90deg); }
+    /* Outgoing page rotates away in the direction of travel */
+    .page.leave-forward { transform: rotateY(-90deg); opacity: 0; }
+    .page.leave-backward { transform: rotateY(90deg); opacity: 0; }
+
+    nav a.active-tab {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      .avatar { width: 72px; height: 72px; }
+      .hero h2 { font-size: 1.5rem; }
+      .toggle-corner { top: 12px; right: 12px; }
+      .notebook-checkbox { font-size: 0.85rem; padding: 6px 12px 6px 2.3em; }
+      .notebook-checkbox .checkmark { left: 0.6em; }
+      .page { padding: 30px 24px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      nav a, .btn, body,
+      .notebook-checkbox .checkmark,
+      .notebook-checkbox .label-word,
+      .notebook-checkbox .cut-line,
+      .page { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hand-drawn noise filter used by the notebook checkbox -->
+  <svg width="0" height="0" style="position:absolute">
+    <filter id="handDrawnNoise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="noise" seed="3" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.6" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </svg>
+
+  <div class="toggle-corner">
+    <label class="notebook-checkbox">
+      <input type="checkbox" id="darkModeToggle" />
+      <span class="checkmark"></span>
+      <span class="text" id="toggleText">
+        <span class="label-word" id="labelWord">Dark mode</span>
+        <svg class="cut-line" id="cutLine" viewBox="0 0 100 10" preserveAspectRatio="none">
+          <path d="M0,5 Q25,0 50,5 T100,5" />
+        </svg>
+      </span>
+    </label>
+  </div>
+
+  <header>
+    <div class="avatar">
+      <img src="profile.png" alt="Arnav Kumar Sagar" />
+    </div>
+    <h1 class="scribble">Arnav Kumar Sagar</h1>
+    <nav>
+      <a href="#about" data-page="about">About</a>
+      <a href="#resume" data-page="resume">Resume</a>
+      <a href="#projects" data-page="projects">Projects</a>
+      <a href="#contact" data-page="contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="book">
+    <section class="page" id="about">
+      <div class="hero">
+        <h2>Hi, I'm Arnav 👋</h2>
+        <p>A developer who builds cool things with code.</p>
+      </div>
+      <div class="box about-box">
+        <h3>About Me</h3>
+        <p>Hi, I'm Arnav Kumar Sagar, a Mathematics &amp; Computing undergraduate at Delhi Technological University (DTU) with a passion for building scalable web applications and solving real-world problems through software. I like building full-stack applications that solve real problems, combining thoughtful design with scalable backend systems.</p>
+        <p>My interests span web development, AI-powered applications, and software architecture. I enjoy exploring new technologies, understanding how systems work under the hood, and continuously improving my problem-solving skills through projects and coding challenges.</p>
+        <p>Recently, I've been focused on building projects that integrate intelligent features into modern web applications, while strengthening my knowledge of backend development, databases, APIs, and system design. I believe the best way to learn is by building, experimenting, and refining.</p>
+        <p>When I'm not coding, you'll usually find me learning something new, improving existing projects, or exploring ideas that challenge me to think differently.</p>
+      </div>
+
+      <h3 class="section-title doing-title">What I'm Doing</h3>
+      <div class="quadrant-grid">
+        <div class="quad-box">
+          <div class="quad-icon">💻</div>
+          <h4>Web Development</h4>
+          <p>Crafting fast, scalable websites and full-stack applications — from polished front-ends to solid, production-ready backend logic.</p>
+        </div>
+        <div class="quad-box">
+          <div class="quad-icon">🛠️</div>
+          <h4>Backend Development</h4>
+          <p>Architecting high-performance backend systems — APIs, databases, and infrastructure — built for scalability and a seamless user experience.</p>
+        </div>
+        <div class="quad-box">
+          <div class="quad-icon">🎨</div>
+          <h4>UI/UX Design</h4>
+          <p>Designing interfaces that feel intuitive and effortless, because thoughtful design is what makes good software actually usable.</p>
+        </div>
+        <div class="quad-box">
+          <div class="quad-icon">📱</div>
+          <h4>Mobile Apps</h4>
+          <p>Building responsive, cross-platform experiences for Android and iOS, focused on smooth performance and clean interaction design.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="resume">
+      <h2 class="section-title">Resume</h2>
+      <div class="box about-box resume-box">
+
+        <h3>Work Experience</h3>
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <strong>Coding Blocks Pvt. Ltd.</strong>
+            <span class="resume-date">Jan 2026 – Jun 2026</span>
+          </div>
+          <div class="resume-role">Campus Ambassador &amp; Software Development Intern · Delhi, India</div>
+          <ul>
+            <li>Served as official Coding Blocks campus representative, leading software development and community outreach initiatives that drove coding culture and technical awareness among 100+ students.</li>
+            <li>Organized and facilitated workshops, webinars, hackathons, and coding contests on the Hacker Blocks platform.</li>
+            <li>Managed cross-functional collaboration with college societies and tech-fest organizers, integrating initiatives into campus events.</li>
+            <li>Contributed to platform software development, delivering user stories and supporting performance optimization.</li>
+            <li>Drove course enrollment growth and led project management efforts to establish a dedicated Coding Blocks Society on campus.</li>
+          </ul>
+        </div>
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <strong>BharatFare</strong>
+            <span class="resume-date">Nov 2025 – Dec 2025</span>
+          </div>
+          <div class="resume-role">Web Development Intern · Remote</div>
+          <ul>
+            <li>Developed 10+ reusable React components, reducing development time by 25%.</li>
+            <li>Improved page load speed by ~35% through code splitting and performance optimization.</li>
+            <li>Led API integration for REST APIs handling 1K+ daily requests with efficient state management.</li>
+            <li>Resolved cross-browser issues, improving UI consistency across major platforms.</li>
+            <li>Collaborated with the backend team to streamline data flow and reduce API latency by 20%.</li>
+          </ul>
+        </div>
+
+        <h3>Education</h3>
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <strong>Delhi Technological University (DTU)</strong>
+            <span class="resume-date">2023 – 2027</span>
+          </div>
+          <div class="resume-role">B.Tech in Mathematics and Computing</div>
+        </div>
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <strong>CBSE Board — Class XII</strong>
+            <span class="resume-date">86.4%</span>
+          </div>
+        </div>
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <strong>CBSE Board — Class X</strong>
+            <span class="resume-date">83.8%</span>
+          </div>
+        </div>
+
+        <h3>Skills</h3>
+        <div class="tag-row">
+          <span class="tag">C / C++</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">Python</span>
+          <span class="tag">React.js</span>
+          <span class="tag">Node.js / FastAPI</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">System Design</span>
+          <span class="tag">REST APIs</span>
+          <span class="tag">Data Structures &amp; Algorithms</span>
+          <span class="tag">AI / Machine Learning</span>
+        </div>
+
+        <a href="Arnav_Kumar_Sagar_Resume.docx" download class="btn resume-download-btn">Download Resume</a>
+      </div>
+    </section>
+
+    <section class="page" id="projects">
+      <h2 class="section-title">Projects</h2>
+      <div class="box project-box">
+        <div class="project-icon">📍</div>
+        <h3>Civic Sense Reporting System</h3>
+        <p class="project-tagline">Potholes don't fix themselves. Now reporting them takes 10 seconds.</p>
+        <p>Civic issues like potholes, broken streetlights, and other local misconduct usually go unreported because there's no clear channel. Reports made here are geo-tagged to the affected area and routed straight to the admin assigned to that zone, so nothing sits in a general inbox.</p>
+        <div class="tag-row">
+          <span class="tag">Maps &amp; Geo-tagging</span>
+          <span class="tag">Role-based Routing</span>
+          <span class="tag">Full-stack</span>
+        </div>
+        <a href="#" class="btn">View on GitHub</a>
+      </div>
+      <div class="box project-box">
+        <div class="project-icon">⚒️</div>
+        <h3>CoreForge Studio</h3>
+        <p class="project-tagline">A place where application cores are built.</p>
+        <p>Spin up a production-ready backend core — auth, database, routing — instead of scaffolding it by hand every time. CoreForge Studio is a backend-as-a-service platform focused on getting real application cores running fast.</p>
+        <div class="terminal-line">$ coreforge init my-app</div>
+        <div class="tag-row">
+          <span class="tag">Backend-as-a-Service</span>
+          <span class="tag">Auth &amp; Databases</span>
+          <span class="tag">System Design</span>
+        </div>
+        <a href="#" class="btn">View on GitHub</a>
+      </div>
+    </section>
+
+    <section class="page" id="contact">
+      <h2 class="section-title">Contact</h2>
+
+      <div class="box about-box enquiry-box">
+        <h3>Send a Direct Enquiry</h3>
+        <form id="enquiryForm" class="enquiry-form">
+          <label for="enq-name">Name</label>
+          <input type="text" id="enq-name" name="name" placeholder="Your name" required />
+
+          <label for="enq-email">Email</label>
+          <input type="email" id="enq-email" name="email" placeholder="you@example.com" required />
+
+          <label for="enq-message">Message</label>
+          <textarea id="enq-message" name="message" rows="4" placeholder="What's on your mind?" required></textarea>
+
+          <button type="submit" class="btn">Send Enquiry</button>
+          <p class="enquiry-note">This opens your email app with the message pre-filled — nothing is sent automatically.</p>
+        </form>
+      </div>
+
+      <div class="box about-box">
+        <p>Have a project in mind, or just want to talk shop? Reach out — I'm always happy to connect.</p>
+        <div class="contact-list">
+          <button type="button" class="contact-row copy-on-click" data-copy="+918287109907" data-default="+91 82871 09907">
+            <span class="contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path filter="url(#handDrawnNoise)" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+            </span>
+            <span class="contact-label">+91 82871 09907</span>
+          </button>
+
+          <button type="button" class="contact-row copy-on-click" data-copy="arnav.kr.sagar@gmail.com" data-default="arnav.kr.sagar@gmail.com">
+            <span class="contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect filter="url(#handDrawnNoise)" x="2" y="4" width="20" height="16" rx="2"/>
+                <path filter="url(#handDrawnNoise)" d="M22 6l-10 7L2 6"/>
+              </svg>
+            </span>
+            <span class="contact-label">arnav.kr.sagar@gmail.com</span>
+          </button>
+
+          <a class="contact-row" href="https://www.linkedin.com/in/arnav-kumar-sagar-595278391/" target="_blank" rel="noopener">
+            <span class="contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect filter="url(#handDrawnNoise)" x="2" y="2" width="20" height="20" rx="4"/>
+                <text x="12" y="16.5" text-anchor="middle" font-size="9.5" font-family="'Courier New', monospace" fill="currentColor" stroke="none">in</text>
+              </svg>
+            </span>
+            <span class="contact-label">LinkedIn</span>
+          </a>
+
+          <a class="contact-row" href="https://github.com/arnavkumarsagarr" target="_blank" rel="noopener">
+            <span class="contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle filter="url(#handDrawnNoise)" cx="12" cy="12" r="10"/>
+                <text x="12" y="15.5" text-anchor="middle" font-size="8" font-family="'Courier New', monospace" fill="currentColor" stroke="none">&lt;/&gt;</text>
+              </svg>
+            </span>
+            <span class="contact-label">GitHub</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Arnav | Handcrafted with ✏️</p>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('darkModeToggle');
+    const textWrap = document.getElementById('toggleText');
+    const labelWord = document.getElementById('labelWord');
+    const cutLine = document.getElementById('cutLine');
+
+    const LINE_SWEEP_MS = 260;   // strike line crosses the word
+    const WORD_FADE_MS = 200;    // word finishes vanishing (starts partway through the sweep)
+    const VANISH_DELAY_MS = 140; // when the word starts fading, relative to sweep start
+    const SWAP_AT_MS = VANISH_DELAY_MS + WORD_FADE_MS + 40; // small pause once fully gone
+    const FADE_IN_MS = 220;
+
+    let animating = false;
+
+    // Respect system preference on first load
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDark) {
+      document.body.classList.add('dark');
+      toggle.checked = true;
+      labelWord.textContent = 'Light mode';
+    }
+
+    toggle.addEventListener('change', () => {
+      if (animating) return;
+      animating = true;
+
+      const isDark = toggle.checked;
+      document.body.classList.toggle('dark', isDark);
+
+      // Beat 1: line sweeps across the word, word fades out underneath it
+      textWrap.classList.add('striking');
+
+      setTimeout(() => {
+        // Beat 2: word is fully gone — reset the line instantly, swap the text
+        cutLine.style.transitionDuration = '0s';
+        textWrap.classList.remove('striking');
+        labelWord.classList.add('entering');
+        labelWord.textContent = isDark ? 'Light mode' : 'Dark mode';
+
+        // Force reflow so the reset above is applied before we animate back in
+        void cutLine.getBoundingClientRect();
+        cutLine.style.transitionDuration = '';
+
+        requestAnimationFrame(() => {
+          // Beat 3: fade the new word in
+          labelWord.style.transition = `opacity ${FADE_IN_MS}ms ease`;
+          labelWord.classList.remove('entering');
+
+          setTimeout(() => {
+            labelWord.style.transition = '';
+            animating = false;
+          }, FADE_IN_MS);
+        });
+      }, SWAP_AT_MS);
+    });
+
+    // ---------- Page-flip navigation ----------
+    const PAGE_ORDER = ['about', 'resume', 'projects', 'contact'];
+    const book = document.getElementById('book');
+    const pages = {};
+    PAGE_ORDER.forEach(id => { pages[id] = document.getElementById(id); });
+    const navLinks = Array.from(document.querySelectorAll('nav a[data-page]'));
+
+    let currentPage = null;
+    let pageAnimating = false;
+    const FLIP_MS = 600;
+
+    function setActiveTab(id) {
+      navLinks.forEach(link => {
+        link.classList.toggle('active-tab', link.dataset.page === id);
+      });
+    }
+
+    function setBookHeight(el) {
+      book.style.height = el.scrollHeight + 'px';
+    }
+
+    function showPageInstantly(id) {
+      PAGE_ORDER.forEach(pid => {
+        const el = pages[pid];
+        el.classList.remove('leave-forward', 'leave-backward', 'pre-enter-forward', 'pre-enter-backward');
+        if (pid === id) {
+          el.classList.add('active');
+        } else {
+          el.classList.remove('active');
+        }
+      });
+      currentPage = id;
+      setActiveTab(id);
+      setBookHeight(pages[id]);
+    }
+
+    function goToPage(targetId, opts) {
+      opts = opts || {};
+      if (!pages[targetId] || targetId === currentPage || pageAnimating) return;
+
+      pageAnimating = true;
+      const fromIdx = PAGE_ORDER.indexOf(currentPage);
+      const toIdx = PAGE_ORDER.indexOf(targetId);
+      const forward = toIdx > fromIdx;
+
+      const currentEl = pages[currentPage];
+      const targetEl = pages[targetId];
+
+      // Lock the container to the taller of the two pages so nothing clips mid-flip
+      book.style.height = Math.max(currentEl.scrollHeight, targetEl.scrollHeight) + 'px';
+
+      // Position the incoming page just off-screen (rotated) with no transition
+      targetEl.classList.add(forward ? 'pre-enter-forward' : 'pre-enter-backward');
+      void targetEl.offsetWidth; // force reflow so the instant position takes hold
+
+      // Next frame: fly the current page out, fly the target page in
+      requestAnimationFrame(() => {
+        currentEl.classList.remove('active');
+        currentEl.classList.add(forward ? 'leave-forward' : 'leave-backward');
+
+        targetEl.classList.remove('pre-enter-forward', 'pre-enter-backward');
+        targetEl.classList.add('active');
+      });
+
+      setTimeout(() => {
+        currentEl.classList.remove('leave-forward', 'leave-backward');
+        setBookHeight(targetEl);
+        setActiveTab(targetId);
+        currentPage = targetId;
+        pageAnimating = false;
+
+        if (!opts.fromPopstate) {
+          history.pushState({ page: targetId }, '', '#' + targetId);
+        }
+      }, FLIP_MS);
+    }
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        goToPage(link.dataset.page);
+      });
+    });
+
+    window.addEventListener('popstate', (e) => {
+      const targetId = (e.state && e.state.page) || 'about';
+      goToPage(targetId, { fromPopstate: true });
+    });
+
+    window.addEventListener('resize', () => {
+      if (currentPage && !pageAnimating) setBookHeight(pages[currentPage]);
+    });
+
+    // Initial page from the URL hash, no animation on first load
+    (function initPages() {
+      const initial = PAGE_ORDER.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'about';
+      showPageInstantly(initial);
+      history.replaceState({ page: initial }, '', '#' + initial);
+    })();
+
+    // ---------- Enquiry form (opens a pre-filled email, no backend needed) ----------
+    const enquiryForm = document.getElementById('enquiryForm');
+    if (enquiryForm) {
+      enquiryForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = enquiryForm.name.value.trim();
+        const email = enquiryForm.email.value.trim();
+        const message = enquiryForm.message.value.trim();
+        const subject = encodeURIComponent(`Portfolio Enquiry from ${name}`);
+        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+        window.location.href = `mailto:arnav.kr.sagar@gmail.com?subject=${subject}&body=${body}`;
+      });
+    }
+
+    // ---------- Copy-on-click rows (phone / email) ----------
+    document.querySelectorAll('.copy-on-click').forEach((row) => {
+      const label = row.querySelector('.contact-label');
+      const defaultText = row.dataset.default;
+      row.addEventListener('click', async () => {
+        const value = row.dataset.copy;
+        try {
+          await navigator.clipboard.writeText(value);
+        } catch (err) {
+          // Fallback for older/unsupported browsers
+          const temp = document.createElement('textarea');
+          temp.value = value;
+          document.body.appendChild(temp);
+          temp.select();
+          document.execCommand('copy');
+          document.body.removeChild(temp);
+        }
+        row.classList.add('copied');
+        label.textContent = 'Copied!';
+        clearTimeout(row._copyTimeout);
+        row._copyTimeout = setTimeout(() => {
+          row.classList.remove('copied');
+          label.textContent = defaultText;
+        }, 1400);
+      });
+    });
+  </script>
+</body>
+</html>
