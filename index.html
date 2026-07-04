@@ -369,15 +369,18 @@
       transform: rotate(1deg);
     }
     .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      border: 2px solid var(--ink);
-      text-decoration: none;
-      color: var(--ink);
-      box-shadow: 2px 2px 0 var(--shadow);
-      transition: 0.2s;
-    }
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: 2px solid var(--ink);
+  background: var(--bg);
+  appearance: none;
+  -webkit-appearance: none;
+  text-decoration: none;
+  color: var(--ink);
+  box-shadow: 2px 2px 0 var(--shadow);
+  transition: 0.2s, background 0.3s ease;
+}
     .btn:hover,
     .btn:focus-visible {
       transform: translate(2px, 2px);
